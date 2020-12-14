@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import useInput from './hooks/useInput';
 import useForm from './hooks/useForm';
@@ -10,6 +10,8 @@ const Login = () => {
   const [email, onEmailChange, emailReset] = useInput('');
   const [password1, onPassword1Change, password1Reset] = useInput('');
   const [password2, onPassword2Change, password2Reset] = useInput('');
+
+  const firstNameInput = useRef(null);
 
   //useForm hook for the form
   const [onFormSubmit] = useForm(onSubmit);
@@ -31,11 +33,17 @@ const Login = () => {
     password2Reset();
   }
 
+  useEffect(() => {
+    console.log(firstNameInput);
+    firstNameInput.current.focus();
+  }, []);
+
   return (
     <form onSubmit={onFormSubmit}>
       <div>
         <label id="first_name">First Name </label>
         <input
+          ref={firstNameInput}
           value={firstName}
           onChange={onFirstNameChange}
           htmlFor="first_name"
